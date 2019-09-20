@@ -11,9 +11,9 @@ OTA_WIFI ota_wifi;
 void setup()
 {
   Serial.begin(9600);
-  Serial.println("Booting....");
   ota_wifi.setup();
   mqtt.connect(mqttClient);
+  
   mqtt.subscribe(testTopic, [](byte* data, u_int l){
     if (cmp(data,"ON",l)) {
       Serial.println("MATCHES");

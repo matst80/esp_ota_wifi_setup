@@ -10,10 +10,9 @@ uint8_t _currentSub;
 
 THandlerFunction findHandler(char *topic)
 {
-    int len = sizeof(topic);
     for (int i = 0; i < _currentSub; i++)
     {
-        if (memcmp(_subs[i].topic, topic, len) == 0)
+        if (strcmp(_subs[i].topic, topic) == 0)
         {
             return _subs[i].handler;
         }
@@ -28,9 +27,7 @@ boolean cmp(byte *a, const char *b, unsigned int l)
 
 void callback(char *topic, byte *payload, unsigned int length)
 {
-    Serial.print("got topic: ");
-    Serial.println(topic),
-        findHandler(topic)(payload, length);
+    findHandler(topic)(payload, length);
 }
 
 mqttSub::mqttSub() {}
